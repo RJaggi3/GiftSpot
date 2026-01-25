@@ -1,13 +1,22 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, Pressable, StyleSheet, Alert } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen() {
+  const router = useRouter();
+
+  const onLogout = async () => {
+    await AsyncStorage.removeItem('token');
+    Alert.alert('Signed out', 'You have been logged out.');
+    router.replace('/(auth)');
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -20,6 +29,13 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <Pressable onPress={onLogout} style={({ pressed }) => [styles.logoutBtn, pressed && { opacity: 0.85 }]}>
+          <ThemedText type="defaultSemiBold" style={styles.logoutText}>
+            Log out
+          </ThemedText>
+        </Pressable>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
@@ -87,6 +103,16 @@ const styles = StyleSheet.create({
   stepContainer: {
     gap: 8,
     marginBottom: 8,
+  },
+  logoutBtn: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#FF8A3D',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+  },
+  logoutText: {
+    color: '#FFFFFF',
   },
   reactLogo: {
     height: 178,
