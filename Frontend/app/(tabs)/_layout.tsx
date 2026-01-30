@@ -1,4 +1,4 @@
-import { Stack, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import { Ionicons } from '@react-native-vector-icons/ionicons';
 
 export default function RootLayout() {
@@ -7,10 +7,10 @@ export default function RootLayout() {
     screenOptions={{animation:"fade"}}
   >
     <Tabs.Screen 
-      name="home"
+      name="index"
       options={{
         title: "Home",
-        tabBarIcon: () => <Ionicons name="home" />
+        tabBarIcon: ({focused}) => <Ionicons name={focused ? "home": 'home-outline'} />
       }}  
     />
 
@@ -18,7 +18,7 @@ export default function RootLayout() {
       name="calendar"
       options={{
         title: "Calendar",
-        tabBarIcon: () => <Ionicons name="calendar-outline" />
+        tabBarIcon: ({focused}) => <Ionicons name={focused ? "calendar": 'calendar-outline'}/>
       }}  
     />
 
@@ -26,15 +26,15 @@ export default function RootLayout() {
       name="saved"
       options={{
         title: "Saved",
-        tabBarIcon: () => <Ionicons name="bookmark-outline" />
+        tabBarIcon: ({focused}) => <Ionicons name={focused ? "bookmark": 'bookmark-outline'}/>
       }}  
     />
 
     <Tabs.Screen 
-      name="settings"
+      name="profile"
       options={{
-        title: "Settings",
-        tabBarIcon: () => <Ionicons name="settings-outline" />
+        title: "Profile",
+        tabBarIcon: ({focused}) => <Ionicons name={focused ? "person": 'person-outline'} />
       }}  
     />
   </Tabs>
