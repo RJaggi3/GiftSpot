@@ -26,8 +26,11 @@ function getDefaultDevHost(): string {
 
 // You can override this with an env var:
 // EXPO_PUBLIC_API_URL=http://192.168.1.10:4000
+
 export const API_BASE_URL =
   process.env.EXPO_PUBLIC_API_URL ?? `http://${getDefaultDevHost()}:4000`;
+  
+console.log('API_BASE_URL =', API_BASE_URL);
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
