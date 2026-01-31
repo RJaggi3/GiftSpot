@@ -24,6 +24,7 @@ const Login: React.FC<LoginProps> = ({ setLoggedInUser }) => {
 
   const onSubmit = async () => {
     try {
+      console.log('Submitting login with', { username, password });
       if (!username || !password) {
         Alert.alert('Missing info', 'Please enter username and password.');
         return;
