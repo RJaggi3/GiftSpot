@@ -34,6 +34,7 @@ const Register: React.FC<RegisterProps> = ({ setLoggedInUser }) => {
         username,
         password,
       });
+      console.log('Registration response:', res);
 
       if (res.data?.token) {
         await AsyncStorage.setItem('token', String(res.data.token));
@@ -43,13 +44,9 @@ const Register: React.FC<RegisterProps> = ({ setLoggedInUser }) => {
       setLoggedInUser(username);
       router.replace('/(tabs)');
     } catch (err: any) {
-      const msg =
-        err?.response?.data?.msg ??
-        err?.response?.data?.message ??
-        err?.message ??
-        'Failed to register';
-      console.error(err?.response?.data ?? err);
-      Alert.alert('Error', String(msg));
+  
+      console.log(err)
+      Alert.alert('Error', String(err));
     } finally {
       setSubmitting(false);
     }
