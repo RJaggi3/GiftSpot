@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import React from 'react';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '../hooks/use-color-scheme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const unstable_settings = {
@@ -22,12 +22,12 @@ export default function RootLayout() {
   React.useEffect(() => {
     let cancelled = false;
     AsyncStorage.getItem('token')
-      .then((t) => {
+      .then((t: any) => {
         if (cancelled) return;
         setToken(t);
         setReady(true);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error('Failed to read auth token:', err);
         setReady(true);
       });
